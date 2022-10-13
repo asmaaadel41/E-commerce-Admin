@@ -1,0 +1,78 @@
+<table class="table caption-top mt-5">
+  <caption>
+    <div class="mb-3">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#viewCart">
+        Add Product
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="viewCart" tabindex="-1" aria-labelledby="viewCartLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addProductLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="form">
+                <div class="row">
+                  <div class="col-md-4 col-sm-12">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" formControlName="title" placeholder="title" id="title"/>
+                  </div>
+                  <div class="col-md-4 col-sm-12">
+                    <label for="price">Price</label>
+                    <input type="text" class="form-control" formControlName="price" placeholder="price" id="price"/>
+                  </div>
+                  <div class="col-md-4 col-sm-12">
+                    <app-select [data]="categories" [title]="'Categories'" [select]="form.value.category" [all]=false (selectedValue)="getSelectedCategory($event)"></app-select>
+                  </div>
+                   <div class="col-md-4 col-sm-12">
+                    <label for="image">Image</label>
+                    <img src="{{base64}}"/>
+                    <input type="file" class="form-control" id="image" (change)="getImagePath($event)"/>
+                  </div>
+                   <div class="col-md-8 col-sm-12">
+                    <label for="description">Description</label>
+                    <textarea type="text" class="form-control" formControlName="description" placeholder="type here..." id="description"></textarea>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary"
+               [disabled]="form.invalid" (click)="addProduct()">Add Product</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </caption>
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Name</th>
+      <th scope="col">Category</th>
+      <th scope="col">Price</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products; let index = index;">
+      <th class="w-25"><img [src]="product.image" class="imageProduct"></th>
+      <td class="w-50">{{product.title}}</td>
+      <td>{{product.category}}</td>
+      <td>{{product.price}}</td>
+      <td>
+        <button type="button" class="btn btn-warning" (click)="updateProduct(product, index)" data-bs-toggle="modal" data-bs-target="#viewCart">
+          Update
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="text-center w-100" *ngIf="loading">
+  <app-spinner></app-spinner>
+</div>

@@ -1,0 +1,22 @@
+<div class="box">
+  <div class="row" *ngIf="!loading">
+    <div class="col-md-5 col-sm-12">
+      <img [src]="data.image" alt="Pic">
+    </div>
+    <div class="col-md-7 col-sm-12">
+      <div class="info">
+        <ul class="list-unstyled">
+          <li>Title: {{data.title}}</li>
+          <li>Category: {{data.category}}</li>
+          <li>Description: {{data.description}}</li>
+          <li>Rate: {{data.rating.rate}}</li>
+          <li>Count: {{data.rating.count}}</li>
+          <li>Price: {{data.price}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="text-center w-100" *ngIf="loading">
+    <app-spinner></app-spinner>
+  </div>
+</div>

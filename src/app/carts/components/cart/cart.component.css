@@ -1,0 +1,6 @@
+.cart {
+  border: 1px solid #eee;
+}
+.cart .send-success {
+  background-color: #7eb076;
+}
